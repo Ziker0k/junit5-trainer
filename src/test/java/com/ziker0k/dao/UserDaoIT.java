@@ -94,6 +94,7 @@ class UserDaoIT extends IntegrationTestBase {
         userDao.update(user);
 
         Optional<User> updatedUser = userDao.findById(user.getId());
+        Assertions.assertThat(updatedUser).isPresent();
         Assertions.assertThat(updatedUser.get()).isEqualTo(user);
     }
 
