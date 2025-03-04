@@ -1,7 +1,6 @@
 package com.ziker0k.validator;
 
 import com.ziker0k.dto.CreateSubscriptionDto;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -12,6 +11,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class CreateSubscriptionValidatorTest {
@@ -49,8 +49,8 @@ class CreateSubscriptionValidatorTest {
 
         ValidationResult validationResult = createSubscriptionValidator.validate(createSubscriptionDto);
 
-        Assertions.assertThat(validationResult.getErrors()).hasSize(1);
-        Assertions.assertThat(validationResult.getErrors().get(0).getCode()).isEqualTo(100);
+        assertThat(validationResult.getErrors()).hasSize(1);
+        assertThat(validationResult.getErrors().get(0).getCode()).isEqualTo(100);
     }
 
     @Test
@@ -64,8 +64,8 @@ class CreateSubscriptionValidatorTest {
 
         ValidationResult validationResult = createSubscriptionValidator.validate(createSubscriptionDto);
 
-        Assertions.assertThat(validationResult.getErrors()).hasSize(1);
-        Assertions.assertThat(validationResult.getErrors().get(0).getCode()).isEqualTo(101);
+        assertThat(validationResult.getErrors()).hasSize(1);
+        assertThat(validationResult.getErrors().get(0).getCode()).isEqualTo(101);
     }
 
     @Test
@@ -79,8 +79,8 @@ class CreateSubscriptionValidatorTest {
 
         ValidationResult validationResult = createSubscriptionValidator.validate(createSubscriptionDto);
 
-        Assertions.assertThat(validationResult.getErrors()).hasSize(1);
-        Assertions.assertThat(validationResult.getErrors().get(0).getCode()).isEqualTo(102);
+        assertThat(validationResult.getErrors()).hasSize(1);
+        assertThat(validationResult.getErrors().get(0).getCode()).isEqualTo(102);
     }
 
     @ParameterizedTest
@@ -96,8 +96,8 @@ class CreateSubscriptionValidatorTest {
 
         ValidationResult validationResult = createSubscriptionValidator.validate(createSubscriptionDto);
 
-        Assertions.assertThat(validationResult.getErrors()).hasSize(1);
-        Assertions.assertThat(validationResult.getErrors().get(0).getCode()).isEqualTo(103);
+        assertThat(validationResult.getErrors()).hasSize(1);
+        assertThat(validationResult.getErrors().get(0).getCode()).isEqualTo(103);
     }
 
     @ParameterizedTest
@@ -112,7 +112,7 @@ class CreateSubscriptionValidatorTest {
 
         ValidationResult validationResult = createSubscriptionValidator.validate(createSubscriptionDto);
 
-        Assertions.assertThat(validationResult.getErrors()).hasSize(4);
-        Assertions.assertThat(validationResult.getErrors().stream().map(Error::getCode)).contains(100, 101, 102, 103);
+        assertThat(validationResult.getErrors()).hasSize(4);
+        assertThat(validationResult.getErrors().stream().map(Error::getCode)).contains(100, 101, 102, 103);
     }
 }
