@@ -22,6 +22,15 @@ class SubscriptionServiceIT extends IntegrationTestBase {
     private SubscriptionDao subscriptionDao;
     private SubscriptionService subscriptionService;
 
+    private static CreateSubscriptionDto getDto(Instant expirationDate) {
+        return CreateSubscriptionDto.builder()
+                .userId(1)
+                .name("Maxim")
+                .provider("GOOGLE")
+                .expirationDate(expirationDate)
+                .build();
+    }
+
     @BeforeEach
     void init() {
         subscriptionDao = SubscriptionDao.getInstance();
@@ -80,14 +89,5 @@ class SubscriptionServiceIT extends IntegrationTestBase {
         assertThat(actualResult.getExpirationDate())
                 .isNotEqualTo(dto.getExpirationDate())
                 .isBefore(Instant.now());
-    }
-
-    private static CreateSubscriptionDto getDto(Instant expirationDate) {
-        return CreateSubscriptionDto.builder()
-                .userId(1)
-                .name("Maxim")
-                .provider("GOOGLE")
-                .expirationDate(expirationDate)
-                .build();
     }
 }

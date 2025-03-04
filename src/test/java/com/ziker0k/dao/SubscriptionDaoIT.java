@@ -18,6 +18,16 @@ class SubscriptionDaoIT extends IntegrationTestBase {
 
     private final SubscriptionDao subscriptionDao = SubscriptionDao.getInstance();
 
+    private static Subscription createSubscription(Integer userId, String name) {
+        return Subscription.builder()
+                .userId(userId)
+                .name(name)
+                .provider(Provider.GOOGLE)
+                .expirationDate(Instant.now().plus(60, ChronoUnit.DAYS))
+                .status(Status.ACTIVE)
+                .build();
+    }
+
     @Test
     void findAll() {
         Subscription subscription1 = subscriptionDao.insert(createSubscription(1, "Ivan"));
@@ -111,15 +121,5 @@ class SubscriptionDaoIT extends IntegrationTestBase {
         List<Subscription> actualResult = subscriptionDao.findByUserId(92392415);
 
         assertThat(actualResult).isEmpty();
-    }
-
-    private static Subscription createSubscription(Integer userId, String name) {
-        return Subscription.builder()
-                .userId(userId)
-                .name(name)
-                .provider(Provider.GOOGLE)
-                .expirationDate(Instant.now().plus(60, ChronoUnit.DAYS))
-                .status(Status.ACTIVE)
-                .build();
     }
 }

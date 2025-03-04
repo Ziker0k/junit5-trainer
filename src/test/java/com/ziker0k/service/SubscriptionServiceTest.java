@@ -43,6 +43,26 @@ class SubscriptionServiceTest {
     @InjectMocks
     private SubscriptionService subscriptionService;
 
+    private static Subscription createSubscription(Instant expirationDate, Status status) {
+        return Subscription.builder()
+                .id(1)
+                .userId(1)
+                .name("Ivan")
+                .provider(Provider.GOOGLE)
+                .expirationDate(expirationDate)
+                .status(status)
+                .build();
+    }
+
+    private static CreateSubscriptionDto createDto(Instant expirationDate) {
+        return CreateSubscriptionDto.builder()
+                .userId(1)
+                .name("Ivan")
+                .provider("GOOGLE")
+                .expirationDate(expirationDate)
+                .build();
+    }
+
     @Test
     void upsertSuccessfullyIfSubscriptionExists() {
         Instant oldExpirationDate = Instant.now(clock).minus(30, ChronoUnit.DAYS);
@@ -173,25 +193,5 @@ class SubscriptionServiceTest {
                 .isInstanceOf(SubscriptionException.class)
                 .hasMessageContaining(String.format("Subscription %d has already expired", actualSubscription.getId()));
         verifyNoMoreInteractions(subscriptionDao);
-    }
-
-    private static Subscription createSubscription(Instant expirationDate, Status status) {
-        return Subscription.builder()
-                .id(1)
-                .userId(1)
-                .name("Ivan")
-                .provider(Provider.GOOGLE)
-                .expirationDate(expirationDate)
-                .status(status)
-                .build();
-    }
-
-    private static CreateSubscriptionDto createDto(Instant expirationDate) {
-        return CreateSubscriptionDto.builder()
-                .userId(1)
-                .name("Ivan")
-                .provider("GOOGLE")
-                .expirationDate(expirationDate)
-                .build();
     }
 }
